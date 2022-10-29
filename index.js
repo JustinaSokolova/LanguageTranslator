@@ -9,32 +9,23 @@ class Translate {
   #innerText;
   #clearButton;
   #responseTranslate;
+  #timeDelay;
 
   constructor(languagesArr) {
     this.languagesArr = languagesArr;
     this.#selectedLang = "en";
+    this.#timeDelay = 700;
 
     setInterval(() => {
       const nowTime = Date.now();
-      //   this.#lastInputText = "";
-
-      const timeCondition = this.#lastInputTime + 1000 < nowTime;
-      const textCondition1 = this.#lastInputText !== this.#textareaInput.value;
-      const textCondition2 = this.#textareaInput.value.length > 0;
-
-      console.log(timeCondition, textCondition1, textCondition2);
-
       if (
-        // this.#lastInputTime + 1000 < nowTime &&
-        // this.#lastInputText !== this.#textareaInput.value &&
-        // this.#textareaInput.value !== ""
-        timeCondition &&
-        textCondition1 &&
-        textCondition2
+        this.#lastInputTime + this.#timeDelay < nowTime &&
+        this.#lastInputText !== this.#textareaInput.value &&
+        this.#textareaInput.value.length > 0
       ) {
         this.#translateFunc();
       }
-    }, 1000);
+    }, this.#timeDelay);
   }
 
   #createTranslateHTML() {
@@ -84,7 +75,7 @@ class Translate {
       btnLangItem.textContent = lang.text;
       this.#buttonsLangBlock.append(btnLangItem);
 
-      if (btnLangItem.hasAttribute("data-lang") === "en") {
+      if (lang.value === "en") {
         btnLangItem.classList.add("selected");
       }
     });
@@ -131,17 +122,18 @@ class Translate {
     try {
       this.#textareaOutput.placeholder = "In progress...";
       const response = await fetch(
-        `https://functions.yandexcloud.net/d4et92dp9bciufd0avqv?texts=${
+        `https://functions.yandexcloud.net/d4et92dp9bciufd0avqv?text=${
           this.#innerText
         }&targetLanguage=${this.#selectedLang}`
       );
       const translation = await response.json();
       this.#lastInputText = this.#textareaInput.value;
 
+      this.#responseTranslate = ""; //
       translation.translations.forEach((obj) => {
         this.#responseTranslate += obj.text + " ";
       });
-      this.#textareaOutput.innerText = this.#responseTranslate;
+      this.#textareaOutput.textContent = this.#responseTranslate;
     } catch (error) {
       console.log("error occurred", error);
     } finally {
@@ -154,8 +146,8 @@ class Translate {
       const isBtnClear = event.target.closest(".clear-button");
       if (isBtnClear) {
         this.#textareaInput.value = "";
-        this.#textareaOutput.value = "";
-        this.#innerText = this.#textareaInput.value.trim();
+        this.#textareaOutput.textContent = "";
+        this.#lastInputText = "";
       }
     });
   }
