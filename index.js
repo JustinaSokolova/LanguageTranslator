@@ -83,6 +83,7 @@ class Translate {
     this.#textareaOutput = document.createElement("textarea");
     this.#textareaOutput.id = "output-text";
     this.#textareaOutput.placeholder = "Here you will see translated text";
+    this.#textareaOutput.readOnly = true;
 
     this.#translatedResult.append(this.#buttonsLangBlock, this.#textareaOutput);
     mainBlock.append(translateBox, this.#translatedResult);
