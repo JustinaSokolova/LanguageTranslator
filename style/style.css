@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Akronim);
 * {
   padding: 0;
   margin: 0;
@@ -23,15 +24,17 @@
   justify-content: center;
   align-items: center;
   gap: 48px;
-  position: relative;
+  margin-top: -40px;
 }
 
 .translate-box {
+  width: 28vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 14px;
   margin-top: 1rem;
+  position: relative;
 }
 
 .text-block {
@@ -40,13 +43,13 @@
   align-items: center;
   color: #e7e7e7;
   font-size: 18px;
+  letter-spacing: 2px;
   padding-bottom: 3px;
 }
 
 textarea {
   display: block;
   resize: none;
-  width: 26vw;
   height: 22vh;
   padding: 1rem;
   border-radius: 10px;
@@ -86,18 +89,13 @@ textarea:focus::placeholder {
   opacity: 0;
 }
 
-.btn-translate {
-  background-color: #f77e38;
-  border-radius: 10px;
-  padding: 12px 20px;
-  font-size: 20px;
-  border-color: none;
-  transition: all 0.3s;
-}
-
-.btn-translate:hover {
+.clear-button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 64px;
+  right: 18px;
   cursor: pointer;
-  transform: scale(1.05);
 }
 
 .btns-block {
@@ -111,6 +109,7 @@ textarea:focus::placeholder {
   background: rgba(0, 0, 0, 0);
   color: #e7e7e7;
   font-size: 18px;
+  letter-spacing: 2px;
   padding: 6px;
   border-bottom: 3px solid transparent;
 }
@@ -123,60 +122,75 @@ textarea:focus::placeholder {
   border-bottom: 3px solid #e7e7e7;
 }
 
-.spinner {
-  -webkit-animation: rotate 2s linear infinite;
-          animation: rotate 2s linear infinite;
-  z-index: 2;
-  position: absolute;
-  top: 50%;
-  left: 51%;
-  margin: -25px 0 0 -25px;
-  width: 40px;
-  height: 40px;
-}
-.spinner .path {
-  stroke: rgb(255, 136, 68);
-  stroke-linecap: round;
-  -webkit-animation: dash 1.5s ease-in-out infinite;
-          animation: dash 1.5s ease-in-out infinite;
+.header {
+  margin-top: -20px;
+  width: 80%;
+  max-width: 600px;
+  height: 150px;
+  background-position: center center;
+  background-size: 1000px 200px;
+  border-radius: 10px;
+  font-family: "Akronim";
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
 }
 
-@-webkit-keyframes rotate {
+.header:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.heading {
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 0;
+  color: rgb(255, 115, 0);
+  font-size: 48px;
+  line-height: 50px;
+  min-width: 50px;
+  letter-spacing: 3px;
+  outline: none;
+  vertical-align: middle;
+  text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 4px -5px 6px yellow, -4px -10px 10px yellow, 0 -10px 30px yellow;
+  -webkit-animation: 2s Blazing infinite alternate linear;
+          animation: 2s Blazing infinite alternate linear;
+}
+
+@-webkit-keyframes Blazing {
+  0% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+  25% {
+    text-shadow: 0 3px 20px red, 0 0 30px red, 0 0 20px orange, 0 0 5px yellow, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow;
+  }
+  50% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5);
+  }
+  75% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, 3px -5px 5px yellow, -4px -10px 10px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5), 0px -25px 40px rgba(255, 255, 0, 0);
+  }
   100% {
-    transform: rotate(360deg);
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
   }
 }
 
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes dash {
+@keyframes Blazing {
   0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+  25% {
+    text-shadow: 0 3px 20px red, 0 0 30px red, 0 0 20px orange, 0 0 5px yellow, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow;
   }
   50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5);
+  }
+  75% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, 3px -5px 5px yellow, -4px -10px 10px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5), 0px -25px 40px rgba(255, 255, 0, 0);
   }
   100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
-  }
-}
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
-  }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
   }
 }/*# sourceMappingURL=style.css.map */

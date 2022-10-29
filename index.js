@@ -6,6 +6,9 @@ class Translate {
   #selectedLang;
   #lastInputTime;
   #lastInputText;
+  #innerText;
+  #clearButton;
+  #responseTranslate;
 
   constructor(languagesArr) {
     this.languagesArr = languagesArr;
@@ -13,9 +16,21 @@ class Translate {
 
     setInterval(() => {
       const nowTime = Date.now();
+      //   this.#lastInputText = "";
+
+      const timeCondition = this.#lastInputTime + 1000 < nowTime;
+      const textCondition1 = this.#lastInputText !== this.#textareaInput.value;
+      const textCondition2 = this.#textareaInput.value.length > 0;
+
+      console.log(timeCondition, textCondition1, textCondition2);
+
       if (
-        this.#lastInputTime + 1000 < nowTime &&
-        this.#lastInputText != this.#textareaInput.value
+        // this.#lastInputTime + 1000 < nowTime &&
+        // this.#lastInputText !== this.#textareaInput.value &&
+        // this.#textareaInput.value !== ""
+        timeCondition &&
+        textCondition1 &&
+        textCondition2
       ) {
         this.#translateFunc();
       }
@@ -27,7 +42,8 @@ class Translate {
     mainContainer.className = "container";
 
     const headerBlock = document.createElement("header");
-    const heading = document.createElement("h1");
+    headerBlock.className = "header";
+    const heading = document.createElement("h3");
     heading.className = "heading";
     heading.textContent = "Language translator";
     headerBlock.append(heading);
@@ -45,7 +61,14 @@ class Translate {
     this.#textareaInput = document.createElement("textarea");
     this.#textareaInput.placeholder = "Enter the text";
 
-    translateBox.append(textBlock, this.#textareaInput);
+    this.#clearButton = document.createElement("button");
+    this.#clearButton.className = "clear-button";
+    this.#clearButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+    width="20" height="20"
+    viewBox="0 0 48 48"
+    style=" fill:#ffffff8c;"><path d="M 39.486328 6.9785156 A 1.50015 1.50015 0 0 0 38.439453 7.4394531 L 24 21.878906 L 9.5605469 7.4394531 A 1.50015 1.50015 0 0 0 8.484375 6.984375 A 1.50015 1.50015 0 0 0 7.4394531 9.5605469 L 21.878906 24 L 7.4394531 38.439453 A 1.50015 1.50015 0 1 0 9.5605469 40.560547 L 24 26.121094 L 38.439453 40.560547 A 1.50015 1.50015 0 1 0 40.560547 38.439453 L 26.121094 24 L 40.560547 9.5605469 A 1.50015 1.50015 0 0 0 39.486328 6.9785156 z"></path></svg>`;
+
+    translateBox.append(textBlock, this.#textareaInput, this.#clearButton);
 
     this.#translatedResult = document.createElement("div");
     this.#translatedResult.className = "translate-box";
@@ -104,22 +127,21 @@ class Translate {
   }
 
   #translateFunc = async () => {
-    const text = this.#textareaInput.value.trim();
+    this.#innerText = this.#textareaInput.value.trim();
     try {
       this.#textareaOutput.placeholder = "In progress...";
       const response = await fetch(
-        `https://functions.yandexcloud.net/d4et92dp9bciufd0avqv?texts=${text}&targetLanguage=${
-          this.#selectedLang
-        }`
+        `https://functions.yandexcloud.net/d4et92dp9bciufd0avqv?texts=${
+          this.#innerText
+        }&targetLanguage=${this.#selectedLang}`
       );
       const translation = await response.json();
       this.#lastInputText = this.#textareaInput.value;
 
-      let string = "";
       translation.translations.forEach((obj) => {
-        string += obj.text + " ";
+        this.#responseTranslate += obj.text + " ";
       });
-      this.#textareaOutput.innerText = string;
+      this.#textareaOutput.innerText = this.#responseTranslate;
     } catch (error) {
       console.log("error occurred", error);
     } finally {
@@ -127,10 +149,22 @@ class Translate {
     }
   };
 
+  #clearTextarea() {
+    this.#clearButton.addEventListener("click", (event) => {
+      const isBtnClear = event.target.closest(".clear-button");
+      if (isBtnClear) {
+        this.#textareaInput.value = "";
+        this.#textareaOutput.value = "";
+        this.#innerText = this.#textareaInput.value.trim();
+      }
+    });
+  }
+
   renderTranslate(body) {
     body.prepend(this.#createTranslateHTML());
     this.#getSelectedLanguage();
     this.#getTextToTranslate();
+    this.#clearTextarea();
   }
 }
 
