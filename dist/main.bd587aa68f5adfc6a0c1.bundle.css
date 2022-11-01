@@ -179,6 +179,10 @@
           animation: Neon-btn-ju 1.5s ease-in-out infinite alternate;
 }
 
+.ju-click-btn:hover {
+  transform: scale(1.05);
+}
+
 .ju-canvas {
   z-index: 1000;
   position: absolute;
@@ -238,5 +242,18 @@
   }
   to {
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228dff, 0 0 35px #228dff, 0 0 40px #228dff, 0 0 50px #228dff, 0 0 75px #228dff;
+  }
+}
+
+
+@media ((max-width: 1500px)){
+  .ju-translate-box {
+    width: 35vw;
+  }
+}
+
+@media ((max-width: 1200px)){
+  .ju-translate-box {
+    width: 39vw;
   }
 }
