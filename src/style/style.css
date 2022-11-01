@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Akronim);
+@import url("https://fonts.googleapis.com/css?family=Akronim");
 * {
   padding: 0;
   margin: 0;
@@ -7,19 +7,21 @@
   transition: all 0.3s;
 }
 
-.container {
+.ju-container {
+  position: absolute;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: url(../assets/111.jpeg) no-repeat center center;
+  background: url(../assets/translator-bg.jpeg) no-repeat center center;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
+  z-index: 999;
 }
 
-.main {
+.ju-main {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +29,7 @@
   margin-top: -40px;
 }
 
-.translate-box {
+.ju-translate-box {
   width: 28vw;
   display: flex;
   flex-direction: column;
@@ -37,7 +39,7 @@
   position: relative;
 }
 
-.text-block {
+.ju-text-block {
   display: flex;
   height: 36px;
   align-items: center;
@@ -47,7 +49,7 @@
   padding-bottom: 3px;
 }
 
-textarea {
+.ju-textarea {
   display: block;
   resize: none;
   height: 22vh;
@@ -59,37 +61,37 @@ textarea {
   overflow: auto;
 }
 
-textarea::-moz-placeholder {
+.ju-textarea::-moz-placeholder {
   color: #fff;
   font-size: 18px;
   opacity: 0.6;
 }
 
-textarea:-ms-input-placeholder {
+.ju-textarea:-ms-input-placeholder {
   color: #fff;
   font-size: 18px;
   opacity: 0.6;
 }
 
-textarea::placeholder {
+.ju-textarea::placeholder {
   color: #fff;
   font-size: 18px;
   opacity: 0.6;
 }
 
-textarea:focus::-moz-placeholder {
+.ju-textarea:focus::-moz-placeholder {
   opacity: 0;
 }
 
-textarea:focus:-ms-input-placeholder {
+.ju-textarea:focus:-ms-input-placeholder {
   opacity: 0;
 }
 
-textarea:focus::placeholder {
+.ju-textarea:focus::placeholder {
   opacity: 0;
 }
 
-.clear-button {
+.ju-clear-button {
   background: none;
   border: none;
   position: absolute;
@@ -98,14 +100,14 @@ textarea:focus::placeholder {
   cursor: pointer;
 }
 
-.btns-block {
+.ju-btns-block {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
 }
 
-.btn-lang {
+.ju-btn-lang {
   background: rgba(0, 0, 0, 0);
   color: #e7e7e7;
   font-size: 18px;
@@ -113,16 +115,16 @@ textarea:focus::placeholder {
   padding: 6px;
   border-bottom: 3px solid transparent;
 }
-.btn-lang:hover {
+.ju-btn-lang:hover {
   cursor: pointer;
   border-bottom: 3px solid #e7e7e7;
 }
 
-.selected {
+.ju-selected {
   border-bottom: 3px solid #e7e7e7;
 }
 
-.header {
+.ju-header {
   margin-top: -20px;
   width: 80%;
   max-width: 600px;
@@ -136,14 +138,14 @@ textarea:focus::placeholder {
   vertical-align: middle;
 }
 
-.header:before {
+.ju-header:before {
   content: "";
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
 
-.heading {
+.ju-heading {
   text-transform: uppercase;
   display: inline-block;
   margin: 0;
@@ -155,11 +157,43 @@ textarea:focus::placeholder {
   outline: none;
   vertical-align: middle;
   text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 4px -5px 6px yellow, -4px -10px 10px yellow, 0 -10px 30px yellow;
-  -webkit-animation: 2s Blazing infinite alternate linear;
-          animation: 2s Blazing infinite alternate linear;
+  -webkit-animation: 2s Blazing-ju infinite alternate linear;
+          animation: 2s Blazing-ju infinite alternate linear;
 }
 
-@-webkit-keyframes Blazing {
+.ju-click-btn {
+  position: absolute;
+  text-transform: uppercase;
+  bottom: 56px;
+  left: 56px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  margin-bottom: 0;
+  margin-top: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  -webkit-animation: Neon-btn-ju 1.5s ease-in-out infinite alternate;
+          animation: Neon-btn-ju 1.5s ease-in-out infinite alternate;
+}
+
+.ju-click-btn:hover {
+  transform: scale(1.05);
+}
+
+.ju-canvas {
+  z-index: 1000;
+  position: absolute;
+  top: 0%;
+}
+
+.ju-canvas-hide {
+  display: none;
+}
+
+@-webkit-keyframes Blazing-ju {
   0% {
     text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
   }
@@ -177,7 +211,7 @@ textarea:focus::placeholder {
   }
 }
 
-@keyframes Blazing {
+@keyframes Blazing-ju {
   0% {
     text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
   }
@@ -193,4 +227,35 @@ textarea:focus::placeholder {
   100% {
     text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+@-webkit-keyframes Neon-btn-ju {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228dff, 0 0 35px #228dff, 0 0 40px #228dff, 0 0 50px #228dff, 0 0 75px #228dff;
+  }
+}
+@keyframes Neon-btn-ju {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228dff, 0 0 35px #228dff, 0 0 40px #228dff, 0 0 50px #228dff, 0 0 75px #228dff;
+  }
+}
+
+
+@media ((max-width: 1500px)){
+  .ju-translate-box {
+    width: 35vw;
+  }
+}
+
+@media ((max-width: 1200px)){
+  .ju-translate-box {
+    width: 39vw;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

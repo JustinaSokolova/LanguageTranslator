@@ -1,0 +1,242 @@
+@import url(https://fonts.googleapis.com/css?family=Akronim);
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+.ju-container {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url(5191b2a202f2c1f5fd5e.jpeg) no-repeat center center;
+  background-size: cover;
+  font-family: Arial, Helvetica, sans-serif;
+  z-index: 999;
+}
+
+.ju-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  margin-top: -40px;
+}
+
+.ju-translate-box {
+  width: 28vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.ju-text-block {
+  display: flex;
+  height: 36px;
+  align-items: center;
+  color: #e7e7e7;
+  font-size: 18px;
+  letter-spacing: 2px;
+  padding-bottom: 3px;
+}
+
+.ju-textarea {
+  display: block;
+  resize: none;
+  height: 22vh;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.0784313725);
+  overflow: auto;
+}
+
+.ju-textarea::-moz-placeholder {
+  color: #fff;
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.ju-textarea:-ms-input-placeholder {
+  color: #fff;
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.ju-textarea::placeholder {
+  color: #fff;
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.ju-textarea:focus::-moz-placeholder {
+  opacity: 0;
+}
+
+.ju-textarea:focus:-ms-input-placeholder {
+  opacity: 0;
+}
+
+.ju-textarea:focus::placeholder {
+  opacity: 0;
+}
+
+.ju-clear-button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 64px;
+  right: 18px;
+  cursor: pointer;
+}
+
+.ju-btns-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.ju-btn-lang {
+  background: rgba(0, 0, 0, 0);
+  color: #e7e7e7;
+  font-size: 18px;
+  letter-spacing: 2px;
+  padding: 6px;
+  border-bottom: 3px solid transparent;
+}
+.ju-btn-lang:hover {
+  cursor: pointer;
+  border-bottom: 3px solid #e7e7e7;
+}
+
+.ju-selected {
+  border-bottom: 3px solid #e7e7e7;
+}
+
+.ju-header {
+  margin-top: -20px;
+  width: 80%;
+  max-width: 600px;
+  height: 150px;
+  background-position: center center;
+  background-size: 1000px 200px;
+  border-radius: 10px;
+  font-family: "Akronim";
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.ju-header:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.ju-heading {
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 0;
+  color: rgb(255, 115, 0);
+  font-size: 48px;
+  line-height: 50px;
+  min-width: 50px;
+  letter-spacing: 3px;
+  outline: none;
+  vertical-align: middle;
+  text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 4px -5px 6px yellow, -4px -10px 10px yellow, 0 -10px 30px yellow;
+  -webkit-animation: 2s Blazing-ju infinite alternate linear;
+          animation: 2s Blazing-ju infinite alternate linear;
+}
+
+.ju-click-btn {
+  position: absolute;
+  text-transform: uppercase;
+  bottom: 56px;
+  left: 56px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  margin-bottom: 0;
+  margin-top: 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  -webkit-animation: Neon-btn-ju 1.5s ease-in-out infinite alternate;
+          animation: Neon-btn-ju 1.5s ease-in-out infinite alternate;
+}
+
+.ju-canvas {
+  z-index: 1000;
+  position: absolute;
+  top: 0%;
+}
+
+.ju-canvas-hide {
+  display: none;
+}
+
+@-webkit-keyframes Blazing-ju {
+  0% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+  25% {
+    text-shadow: 0 3px 20px red, 0 0 30px red, 0 0 20px orange, 0 0 5px yellow, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow;
+  }
+  50% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5);
+  }
+  75% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, 3px -5px 5px yellow, -4px -10px 10px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5), 0px -25px 40px rgba(255, 255, 0, 0);
+  }
+  100% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+}
+
+@keyframes Blazing-ju {
+  0% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+  25% {
+    text-shadow: 0 3px 20px red, 0 0 30px red, 0 0 20px orange, 0 0 5px yellow, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow;
+  }
+  50% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, -2px -5px 5px yellow, 3px -10px 10px yellow, -4px -15px 20px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5);
+  }
+  75% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 -5px 10px orange, 3px -5px 5px yellow, -4px -10px 10px yellow, 2px -20px 30px rgba(255, 255, 0, 0.5), 0px -25px 40px rgba(255, 255, 0, 0);
+  }
+  100% {
+    text-shadow: 0 3px 20px red, 0 0 20px red, 0 0 10px orange, 0 0 0 yellow, 0 0 5px yellow, -2px -5px 5px yellow, 4px -10px 10px yellow;
+  }
+}
+@-webkit-keyframes Neon-btn-ju {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228dff, 0 0 35px #228dff, 0 0 40px #228dff, 0 0 50px #228dff, 0 0 75px #228dff;
+  }
+}
+@keyframes Neon-btn-ju {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff, 0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #228dff, 0 0 35px #228dff, 0 0 40px #228dff, 0 0 50px #228dff, 0 0 75px #228dff;
+  }
+}

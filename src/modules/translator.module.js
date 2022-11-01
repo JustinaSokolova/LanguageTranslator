@@ -1,4 +1,7 @@
-class Translate {
+import Spider from "./spider.js";
+
+export default class Translate {
+  #languagesArr;
   #translatedResult;
   #buttonsLangBlock;
   #textareaInput;
@@ -10,12 +13,21 @@ class Translate {
   #clearButton;
   #responseTranslate;
   #timeDelay;
+  #clickButton;
+  #canvas;
+  #spiders;
+  #ctx;
 
-  constructor(languagesArr) {
-    this.languagesArr = languagesArr;
+  constructor() {
+    this.#languagesArr = [
+      { value: "en", text: "English" },
+      { value: "ru", text: "Russian" },
+      { value: "fr", text: "French" },
+      { value: "de", text: "German" },
+    ];
+
     this.#selectedLang = "en";
     this.#timeDelay = 700;
-
     setInterval(() => {
       const nowTime = Date.now();
       if (
@@ -26,34 +38,36 @@ class Translate {
         this.#translateFunc();
       }
     }, this.#timeDelay);
+
+    this.#spiders = [];
   }
 
   #createTranslateHTML() {
-    const mainContainer = document.querySelector(".container");
-    mainContainer.className = "container";
+    const mainContainer = document.createElement("div");
+    mainContainer.className = "ju-container";
 
     const headerBlock = document.createElement("header");
-    headerBlock.className = "header";
-    const heading = document.createElement("h3");
-    heading.className = "heading";
+    headerBlock.className = "ju-header";
+    const heading = document.createElement("p");
+    heading.className = "ju-heading";
     heading.textContent = "Language translator";
     headerBlock.append(heading);
 
     const mainBlock = document.createElement("main");
-    mainBlock.className = "main";
+    mainBlock.className = "ju-main";
 
     const translateBox = document.createElement("div");
-    translateBox.className = "translate-box";
+    translateBox.className = "ju-translate-box";
 
     const textBlock = document.createElement("p");
-    textBlock.className = "text-block";
+    textBlock.className = "ju-text-block";
     textBlock.textContent = "The language is detected automatically";
 
     this.#textareaInput = document.createElement("textarea");
     this.#textareaInput.placeholder = "Enter the text";
-
+    this.#textareaInput.className = "ju-textarea";
     this.#clearButton = document.createElement("button");
-    this.#clearButton.className = "clear-button";
+    this.#clearButton.className = "ju-clear-button";
     this.#clearButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
     width="20" height="20"
     viewBox="0 0 48 48"
@@ -62,49 +76,81 @@ class Translate {
     translateBox.append(textBlock, this.#textareaInput, this.#clearButton);
 
     this.#translatedResult = document.createElement("div");
-    this.#translatedResult.className = "translate-box";
+    this.#translatedResult.className = "ju-translate-box";
 
     this.#buttonsLangBlock = document.createElement("div");
-    this.#buttonsLangBlock.className = "btns-block";
+    this.#buttonsLangBlock.className = "ju-btns-block";
     let btnLangItem;
 
-    this.languagesArr.forEach((lang) => {
+    this.#languagesArr.forEach((lang) => {
       btnLangItem = document.createElement("button");
-      btnLangItem.className = "btn-lang";
+      btnLangItem.className = "ju-btn-lang";
       btnLangItem.dataset.lang = lang.value;
       btnLangItem.textContent = lang.text;
       this.#buttonsLangBlock.append(btnLangItem);
 
       if (lang.value === "en") {
-        btnLangItem.classList.add("selected");
+        btnLangItem.classList.add("ju-selected");
       }
     });
 
     this.#textareaOutput = document.createElement("textarea");
-    this.#textareaOutput.id = "output-text";
+    this.#textareaOutput.className = "ju-textarea";
     this.#textareaOutput.placeholder = "Here you will see translated text";
-    this.#textareaOutput.readOnly = true;
+
+    this.#clickButton = document.createElement("button");
+    this.#clickButton.className = "ju-click-btn";
+    this.#clickButton.textContent = "Click me";
+
+    this.#clickButton.addEventListener("click", (event) => {
+      const isBtnClick = event.target.closest(".ju-click-btn");
+      if (isBtnClick) {
+        if (this.#canvas.classList.contains("ju-canvas-hide")) {
+          this.#canvas.classList.remove("ju-canvas-hide");
+          for (let i = 0; i < 3; i++) {
+            this.#spiders.push(new Spider(this.#ctx));
+          }
+        } else {
+          this.#canvas.classList.add("ju-canvas-hide");
+          this.#spiders = [];
+        }
+      }
+    });
+
+    this.#canvas = document.createElement("canvas");
+    this.#canvas.className = "ju-canvas";
+    this.#canvas.classList.add("ju-canvas-hide");
+    this.#ctx = this.#canvas.getContext("2d");
+
+    this.#ctx.canvas.width = window.innerWidth;
+    this.#ctx.canvas.height = window.innerHeight / 2.5;
+
+    createjs.Ticker.setFPS(30);
+    createjs.Ticker.addEventListener("tick", () => {
+      this.#ctx.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+      this.#spiders.forEach((spider) => spider.render());
+    });
 
     this.#translatedResult.append(this.#buttonsLangBlock, this.#textareaOutput);
-    mainBlock.append(translateBox, this.#translatedResult);
-    mainContainer.append(headerBlock, mainBlock);
+    mainBlock.append(translateBox, this.#translatedResult, this.#clickButton);
+    mainContainer.append(headerBlock, mainBlock, this.#canvas);
 
     return mainContainer;
   }
 
   #getSelectedLanguage() {
     this.#buttonsLangBlock.addEventListener("click", (event) => {
-      const isBntLang = event.target.closest(".btn-lang");
+      const isBntLang = event.target.closest(".ju-btn-lang");
       if (isBntLang) {
         const btnLangClick = event.target.closest("[data-lang]");
         this.#selectedLang = btnLangClick.getAttribute("data-lang");
 
-        const buttonsArr = document.querySelectorAll(".btn-lang");
+        const buttonsArr = document.querySelectorAll(".ju-btn-lang");
         buttonsArr.forEach((btn) => {
           if (event.target === btn) {
-            btn.classList.add("selected");
+            btn.classList.add("ju-selected");
           } else {
-            btn.classList.remove("selected");
+            btn.classList.remove("ju-selected");
           }
         });
       }
@@ -144,7 +190,7 @@ class Translate {
 
   #clearTextarea() {
     this.#clearButton.addEventListener("click", (event) => {
-      const isBtnClear = event.target.closest(".clear-button");
+      const isBtnClear = event.target.closest(".ju-clear-button");
       if (isBtnClear) {
         this.#textareaInput.value = "";
         this.#textareaOutput.textContent = "";
@@ -153,22 +199,13 @@ class Translate {
     });
   }
 
-  renderTranslate(body) {
-    body.prepend(this.#createTranslateHTML());
+  renderTranslate() {
+    const body = document.querySelector("body");
+    const containerTranslator = this.#createTranslateHTML();
+    body.prepend(containerTranslator);
     this.#getSelectedLanguage();
     this.#getTextToTranslate();
     this.#clearTextarea();
+    return containerTranslator;
   }
 }
-
-const languagesArr = [
-  { value: "en", text: "English" },
-  { value: "ru", text: "Russian" },
-  { value: "fr", text: "French" },
-  { value: "de", text: "German" },
-];
-
-const customTranslate = new Translate(languagesArr);
-const body = document.querySelector("body");
-
-customTranslate.renderTranslate(body);
